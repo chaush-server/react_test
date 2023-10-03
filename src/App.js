@@ -117,7 +117,7 @@
 //       }}
 //     />
 //   );
-}
+// }
 //8
 // function Item({ name, isPacked }) {
 //   return (

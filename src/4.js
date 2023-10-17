@@ -1,16 +1,42 @@
 import React, { useState } from 'react';
+import ConfirmationDialog from './confirm';
 const ShapeList = ({ shapes, removeShape }) => {
-    return (
+  const [selectedShapeIndex, setSelectedShapeIndex] = useState(null);
+  const [isConfirmationDialogOpen, setConfirmationDialogOpen] = useState(false);
+
+  const openConfirmationDialog = (index) => {
+    setSelectedShapeIndex(index);
+    setConfirmationDialogOpen(true);
+  };
+
+  const closeConfirmationDialog = () => {
+    setSelectedShapeIndex(null);
+    setConfirmationDialogOpen(false);
+  };
+
+  const handleConfirmDelete = () => {
+    if (selectedShapeIndex !== null) {
+      removeShape(selectedShapeIndex);
+      closeConfirmationDialog();
+    }
+  };
+
+  return (
+    <div>
       <ul>
         {shapes.map((shape, index) => (
           <li key={index}>
             {shape}
-            <button onClick={() => removeShape(index)}>Удалить</button>
+            <button onClick={() => openConfirmationDialog(index)}>Удалить</button>
           </li>
         ))}
       </ul>
-    );
-  };
+      {isConfirmationDialogOpen?(
+        <ConfirmationDialog onConfirm={handleConfirmDelete} onCancel={closeConfirmationDialog} />
+      ):null}
+    </div>
+  );
+};
 
   const AddShapeForm = ({ addShape }) => {
     const [shapeType, setShapeType] = useState('');

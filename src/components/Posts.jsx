@@ -25,10 +25,24 @@ function Post({ post }) {
     const [newComment, setNewComment] = useState({ name: '', text: '' });
     const [comments, setComments] = useState([]);
 
-    const handleCommentSubmit = () => {
-        setComments([...comments, newComment]);
-        setNewComment({ name: '', text: '' });
+    const handleCommentSubmit = async () => {
+        try {
+            const response = await axios.post('https://jsonplaceholder.typicode.com/comments', {
+                postId: post.id,
+                name: newComment.name,
+                body: newComment.text
+            });
+
+            // В response.data будет содержаться тело ответа от сервера
+            const postedComment = {'name': response.data.name, 'text': response.data.body};
+            // После успешной отправки комментария обновляем состояние comments и newComment
+            setComments([...comments, postedComment]);
+            setNewComment({ name: '', text: '' });
+        } catch (error) {
+            console.error('Error posting comment:', error);
+        }
     };
+
 
     return (
         <div>

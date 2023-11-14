@@ -19,12 +19,17 @@ function Posts() {
             ))}
         </div>
     );
-};
-
+}
 function Post({ post }) {
     const [newComment, setNewComment] = useState({ name: '', text: '' });
     const [comments, setComments] = useState([]);
-
+    useEffect(() => {
+        async function fetchData() {
+            const response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${post.id}/comments`)
+            setComments(response.data);
+            }
+        fetchData().then();
+        }, [post.id]);
     const handleCommentSubmit = async () => {
         try {
             const response = await axios.post('https://jsonplaceholder.typicode.com/comments', {
@@ -33,9 +38,7 @@ function Post({ post }) {
                 body: newComment.text
             });
 
-            // В response.data будет содержаться тело ответа от сервера
             const postedComment = {'name': response.data.name, 'text': response.data.body};
-            // После успешной отправки комментария обновляем состояние comments и newComment
             setComments([...comments, postedComment]);
             setNewComment({ name: '', text: '' });
         } catch (error) {
@@ -67,7 +70,7 @@ function Comments({ comments }) {
             <ul>
                 {comments.map((comment, index) => (
                     <li key={index}>
-                        {comment.name}: {comment.text}
+                        {comment.name}: {comment.text ? comment.text : comment.body}
                     </li>
                 ))}
             </ul>

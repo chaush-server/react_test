@@ -1,4 +1,3 @@
-// Компонент Countries
 import React, { useState, useEffect } from 'react';
 import { Pagination, createTheme, ThemeProvider } from '@mui/material';
 
@@ -36,7 +35,7 @@ const Countries = () => {
         styleOverrides: {
           ul: {
             '& .MuiPaginationItem-root': {
-              color: '#fff', // Устанавливаем белый цвет для кнопок пагинации
+              color: '#fff',
             },
           },
         },
@@ -55,11 +54,9 @@ const Countries = () => {
               <div key={index}>
                 <h3>{country.name.common}</h3>
                 <img src={country.flags.png} alt={country.name.common} width="100" />
-                {/* Возможно, здесь стоит отобразить другую информацию о стране */}
               </div>
             ))}
         </div>
-        {/* Пагинация */}
         <Pagination
           count={totalPages}
           page={currentPage}

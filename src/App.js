@@ -1,26 +1,15 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Layout from './Layout';
-import Home from './Pages/Home.jsx';
-import Blogs from './Pages/Blogs.jsx';
-import Contact from './Pages/Contact.jsx';
-import NoPage from './Pages/NoPage.jsx';
-import ErrorPage from './Pages/ErrorPage.jsx';
-import Products from './Pages/Products.jsx';
+import UserList from './UserList';
+import UserDetails from './UserDetails';
 
 const App = () => {
   return (
     <BrowserRouter>
-      <Layout>
-        <Routes>
-          <Route path="/" exact element={<Home />} />
-          <Route path="/blogs" element={<Blogs />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/products/*" element={<Products />} />
-          <Route path="/error" element={<ErrorPage />} />
-          <Route path="*" element={<NoPage />} />
-        </Routes>
-      </Layout>
+      <Routes>
+        <Route path="/" element={<UserList />} />
+        <Route path="/users/:userId" element={<UserDetails />} />
+      </Routes>
     </BrowserRouter>
   );
 };

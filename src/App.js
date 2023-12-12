@@ -1,30 +1,42 @@
-import React, { useState, useContext } from "react";
+import React, {useContext} from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { AuthProvider } from './AuthContext';
+import PrivateRoute from './PrivateRoute';
+import {AuthContext} from './AuthContext';
+// import Home from './Home';
+// import Login from './Login';
+// import Dashboard from './Dashboard';
 
-export const Context = React.createContext();
-
-function ComponentA() {
-  const [context, setContext] = useContext(Context);
+function Home() {
   return (
-    <div>
-      ComponentA:
-      <button onClick={() => setContext("New Value")}>
-        Change Context Value
-      </button>
-    </div>
+    <div>Home</div>
+  )
+}
 
+function Login() {
+  return (
+    <div>Login</div>
+  )
+}
+
+function Dashboard() {
+  return (
+    <div>Dashboard</div>
+  )
+}
+
+function App() {
+  return (
+    <Router>
+      <AuthProvider>
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route exact path='/dashboard' element={<PrivateRoute />}/>
+        </Routes>
+      </AuthProvider>
+    </Router>
   );
 }
-function ComponentB() {
-  const context = useContext(Context);
-  return <div>ComponentB: {context}</div>;
-}
 
-export default function App() {
-  const context = useState("default context value");
-  return (
-    <Context.Provider value={context}>
-      <ComponentA />
-      <ComponentB />
-    </Context.Provider>
-  );
-}
+export default App;

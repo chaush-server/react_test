@@ -1,17 +1,30 @@
-import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import UserList from './UserList';
-import UserDetails from './UserDetails';
+import React, { useState, useContext } from "react";
 
-const App = () => {
+export const Context = React.createContext();
+
+function ComponentA() {
+  const [context, setContext] = useContext(Context);
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<UserList />} />
-        <Route path="/users/:userId" element={<UserDetails />} />
-      </Routes>
-    </BrowserRouter>
-  );
-};
+    <div>
+      ComponentA:
+      <button onClick={() => setContext("New Value")}>
+        Change Context Value
+      </button>
+    </div>
 
-export default App;
+  );
+}
+function ComponentB() {
+  const context = useContext(Context);
+  return <div>ComponentB: {context}</div>;
+}
+
+export default function App() {
+  const context = useState("default context value");
+  return (
+    <Context.Provider value={context}>
+      <ComponentA />
+      <ComponentB />
+    </Context.Provider>
+  );
+}

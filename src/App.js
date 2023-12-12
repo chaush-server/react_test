@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import { AuthProvider } from './AuthContext';
 import PrivateRoute from './PrivateRoute';
 import {AuthContext} from './AuthContext';
@@ -14,10 +14,22 @@ function Home() {
 }
 
 function Login() {
+  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  function auth() {
+    setIsAuthenticated(true);
+    navigate('/dashboard');
+  }
+
   return (
-    <div>Login</div>
-  )
+    <div>
+      Login
+      <button onClick={auth}>Login</button>
+    </div>
+  );
 }
+
 
 function Dashboard() {
   return (

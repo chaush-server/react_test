@@ -1,42 +1,28 @@
-import React, {useContext} from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { AuthProvider } from './AuthContext';
-import PrivateRoute from './PrivateRoute';
-import {AuthContext} from './AuthContext';
-// import Home from './Home';
-// import Login from './Login';
-// import Dashboard from './Dashboard';
+import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Layout from './Layout';
+import Home from './Pages/Home.jsx';
+import Blogs from './Pages/Blogs.jsx';
+import Contact from './Pages/Contact.jsx';
+import NoPage from './Pages/NoPage.jsx';
+import ErrorPage from './Pages/ErrorPage.jsx';
+import Products from './Pages/Products.jsx';
 
-function Home() {
+const App = () => {
   return (
-    <div>Home</div>
-  )
-}
-
-function Login() {
-  return (
-    <div>Login</div>
-  )
-}
-
-function Dashboard() {
-  return (
-    <div>Dashboard</div>
-  )
-}
-
-function App() {
-  return (
-    <Router>
-      <AuthProvider>
+    <BrowserRouter>
+      <Layout>
         <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route exact path='/dashboard' element={<PrivateRoute />}/>
+          <Route path="/" element={<Home />} />
+          <Route path="/blogs" element={<Blogs />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/products/*" element={<Products />} />
+          <Route path="/error" element={<ErrorPage />} />
+          <Route path="*" element={<NoPage />} />
         </Routes>
-      </AuthProvider>
-    </Router>
+      </Layout>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;

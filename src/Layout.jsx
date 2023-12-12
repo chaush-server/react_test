@@ -1,7 +1,10 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-
+import { NavLink, Link, useLocation } from 'react-router-dom';
+import CustomLink from './CustomLink.jsx'
+import './active.css';
 const Layout = ({ children }) => {
+  const location = useLocation();
+  const setActive = ({isActive}) => ({color : isActive ? 'magenta': ''})
   return (
     <div>
       <nav>
@@ -12,13 +15,18 @@ const Layout = ({ children }) => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/blogs" activeClassName="active">
+            <Link to="/blogs" className={location.pathname === '/blogs' ? 'YES' : 'NO'}>
               Blogs
-            </NavLink>
+            </Link>
           </li>
           <li>
-            <NavLink to="/contact" activeClassName="active">
+            <CustomLink to="/contact" >
               Contact
+            </CustomLink>
+          </li>
+          <li>
+            <NavLink to="/some" style={setActive}>
+              Some
             </NavLink>
           </li>
           <li>

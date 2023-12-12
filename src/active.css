@@ -1,0 +1,9 @@
+.active{
+    color: red;
+}
+nav ul li a.active {
+    color: yellow;
+}
+.YES {
+    color:  pink;
+}

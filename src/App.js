@@ -14,18 +14,21 @@ function Home() {
 }
 
 function Login() {
-  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, login } = useContext(AuthContext);
   const navigate = useNavigate();
 
   function auth() {
-    setIsAuthenticated(true);
-    navigate('/dashboard');
+    login();
+  }
+  function dash(){
+    navigate("/dashboard")
   }
 
   return (
     <div>
       Login
       <button onClick={auth}>Login</button>
+      <button onClick={dash}>Dash</button>
     </div>
   );
 }
